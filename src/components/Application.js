@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
 
 import DayList from "components/DayList";
 import Appointment from "components/Appointment"
@@ -96,18 +97,6 @@ const appointments = [
     }
   }
 ];
-
-/*   let interviewers = props.interviewers.map(interviewer => {
-    return (
-      <InterviewerListItem
-        key={interviewer.id}
-        name={interviewer.name}
-        avatar={interviewer.avatar}
-        selected={interviewer.id === props.interviewer}
-        setInterviewer={(event) => props.setInterviewer(interviewer.id)}
-      />
-    );
-  }); */
 
 export default function Application(props) {
   const [day, setDay] = useState("Monday");
