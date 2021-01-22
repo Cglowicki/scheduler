@@ -1,27 +1,18 @@
 export const getAppointmentsForDay = (state, day) => {
 
-  
-  //console.log("ACCESS THIS INFO ", state.days)
-  //console.log(day);
-  const dayOfAppt = state.days.find(dayOfWeek => dayOfWeek.name === day);
+  let results = [];
 
-  //console.log("CHECKOUT ", dayOfAppt);
-
-  if (state.days.length < 1) {
-
-    return [];
-
-  } else if (dayOfAppt === undefined) {
-
-    return [];
-
-  } else {
-  const result = dayOfAppt.appointments.map((id) => state.appointments[id]);
-
-  //console.log(result);
-
-  return result;
-  };
-
+  for (const obj of state.days) {
+    if(obj.name === day) {
+      for (const dayAppt of obj.appointments) {
+        for (const appt of Object.values(state.appointments)) {
+          if (dayAppt === appt.id) {
+            results.push(appt)
+          }
+        }
+      }
+    }
+  }
+  return results;
 };
 

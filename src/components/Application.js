@@ -6,9 +6,7 @@ import Appointment from "components/Appointment"
 
 import { getAppointmentsForDay } from 'Helpers/selectors';
 
-
 import "components/Application.scss";
-
 
 export default function Application(props) {
 
@@ -32,17 +30,14 @@ export default function Application(props) {
     ]).then((all) => {
         setDays(all[0].data);
         setAppointments(all[1].data);
-      console.log("HEREHEREHEREHERE:", all);
+        
     });
   }, [])
 
   dailyAppointments = getAppointmentsForDay(state, state.day);
-
-  console.log("Outside of map", dailyAppointments);
   
   let apptMap = dailyAppointments.map(appointment => {
-    
-    console.log("inside of map()");
+  
     return (
       <Appointment
         key={appointment.id}
