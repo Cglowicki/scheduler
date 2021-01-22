@@ -1,16 +1,19 @@
-import { getAppointmentsForDay } from "helpers/selectors";
+import { getAppointmentsForDay } from "Helpers/selectors";
+
 
 const state = {
   days: [
     {
       id: 1,
       name: "Monday",
-      appointments: [1, 2, 3]
+      appointments: [1, 2, 3],
+      interviewers: [1, 2]
     },
     {
       id: 2,
       name: "Tuesday",
-      appointments: [4, 5]
+      appointments: [4, 5],
+      interviewers: [3, 4]
     }
   ],
   appointments: {
@@ -26,6 +29,28 @@ const state = {
       id: 5,
       time: "4pm",
       interview: { student: "Chad Takahashi", interviewer: 2 }
+    }
+  },
+  interviewers: {
+    "1": {  
+      "id": 1,
+      "name": "Sylvia Palmer",
+      "avatar": "https://i.imgur.com/LpaY82x.png"
+    },
+    "2": {
+      id: 2,
+      name: "Tori Malcolm",
+      avatar: "https://i.imgur.com/Nmx0Qxo.png"
+    },
+    "3": {
+      id: 3,
+      name: "Chris Martin",
+      avatar: "https://i.imgur.com/Nmx0Qxo.png"
+    },
+    "4": {
+      id: 4,
+      name: "Rolling Stones",
+      avatar: "https://i.imgur.com/Nmx0Qxo.png"
     }
   }
 };

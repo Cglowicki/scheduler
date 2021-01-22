@@ -1,4 +1,5 @@
-export function getAppointmentsForDay(state, day) {
+export const getAppointmentsForDay = (state, day) => {
+
   
   //console.log("ACCESS THIS INFO ", state.days)
   //console.log(day);
@@ -7,16 +8,20 @@ export function getAppointmentsForDay(state, day) {
   //console.log("CHECKOUT ", dayOfAppt);
 
   if (state.days.length < 1) {
-    return [];
-  };
 
-  if (dayOfAppt === undefined) {
     return [];
-  };
 
+  } else if (dayOfAppt === undefined) {
+
+    return [];
+
+  } else {
   const result = dayOfAppt.appointments.map((id) => state.appointments[id]);
 
   //console.log(result);
 
   return result;
-}
+  };
+
+};
+
