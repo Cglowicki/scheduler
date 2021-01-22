@@ -6,7 +6,7 @@ import Appointment from "components/Appointment"
 
 import "components/Application.scss";
 
-const days = [
+/* const days = [
   {
     id: 1,
     name: "Monday",
@@ -22,7 +22,7 @@ const days = [
     name: "Wednesday",
     spots: 0,
   },
-];
+]; */
 
 const appointments = [
   {
@@ -99,7 +99,15 @@ const appointments = [
 ];
 
 export default function Application(props) {
-  const [day, setDay] = useState("Monday");
+  const [day, setDay] = useState(["Monday"]);
+  const [days, setDays] = useState([]);
+  const URL = 'http://localhost:8001/api/days'
+  useEffect(() => {
+    axios.get(URL).then(response => {
+      setDays([...response.data])
+    });
+  }, [])
+  
 
   let appointment = appointments.map(appointment => {
     return (
