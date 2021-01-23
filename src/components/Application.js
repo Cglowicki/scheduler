@@ -34,7 +34,7 @@ export default function Application(props) {
       setInterviewers(all[2].data);
 
     });
-  }, [])
+  }, []);
 
   let dailyInterviews = getInterview(state, state.interview);
   dailyAppointments = getAppointmentsForDay(state, state.day);
@@ -72,8 +72,8 @@ export default function Application(props) {
         />
       </section>
       <section className="schedule">
-        {dailyInterviews}
         {apptMap}
+        {dailyInterviews}
         <Appointment key="last" time="8pm" />
       </section>
     </main>

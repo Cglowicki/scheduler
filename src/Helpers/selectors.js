@@ -22,7 +22,7 @@ export const getInterview = (state, interview) => {
     return null;
   };
 
-  const interviewerId = interview.interviewer; //key
+  const interviewerId = interview.interviewer;
 
   const interviewer = state.interviewers[interviewerId];
 
@@ -30,5 +30,10 @@ export const getInterview = (state, interview) => {
 
   return result;
 
+};
+
+export const getInterviewersForDay = (state, interviewers) => {
+
+  
 };
 
