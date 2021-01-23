@@ -4,7 +4,7 @@ import axios from 'axios';
 import DayList from "components/DayList";
 import Appointment from "components/Appointment"
 
-import { getAppointmentsForDay } from 'Helpers/selectors';
+import { getAppointmentsForDay, getInterview } from 'Helpers/selectors';
 
 import "components/Application.scss";
 
@@ -20,7 +20,8 @@ export default function Application(props) {
 
   const setDays = days => setState(prev => ({ ...prev, days }));
   const setDay = day => setState({ ...state, day });
-  const setAppointments = appointments => setState( prev => ({ ...prev, appointments }));
+  const setAppointments = appointments => setState(prev => ({ ...prev, appointments }));
+  const setInterviewers = interviewers => setState(prev => ({ ...prev, interviewers }));
 
   useEffect(() => {
     Promise.all([
@@ -28,16 +29,17 @@ export default function Application(props) {
       axios.get('http://localhost:8001/api/appointments'),
       axios.get('http://localhost:8001/api/interviewers')
     ]).then((all) => {
-        setDays(all[0].data);
-        setAppointments(all[1].data);
-        
+      setDays(all[0].data);
+      setAppointments(all[1].data);
+      setInterviewers(all[2].data);
+
     });
   }, [])
 
   dailyAppointments = getAppointmentsForDay(state, state.day);
-  
+
   let apptMap = dailyAppointments.map(appointment => {
-  
+
     return (
       <Appointment
         key={appointment.id}
@@ -69,6 +71,7 @@ export default function Application(props) {
         />
       </section>
       <section className="schedule">
+        {getInterview}
         {apptMap}
         <Appointment key="last" time="8pm" />
       </section>

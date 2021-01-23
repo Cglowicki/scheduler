@@ -16,3 +16,19 @@ export const getAppointmentsForDay = (state, day) => {
   return results;
 };
 
+export const getInterview = (state, interview) => {
+
+  if (!interview) {
+    return null;
+  };
+
+  const interviewerId = interview.interviewer; //key
+
+  const interviewer = state.interviewers[interviewerId];
+
+  const result = {...interview, interviewer};
+
+  return result;
+
+};
+
