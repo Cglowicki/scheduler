@@ -13,6 +13,7 @@ export const getAppointmentsForDay = (state, day) => {
       }
     }
   }
+  
   return results;
 };
 
@@ -47,7 +48,7 @@ export const getInterviewersForDay = (state, day) => {
       }
     }
   }
- 
+  
   return results;
 };
 
