@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 
 import './styles.scss';
 
@@ -20,6 +19,7 @@ export default function Appointment(props) {
   const SAVING = 'SAVING';
   const CONFIRM = 'Are you sure you would like to delete?';
   const DELETING = 'DELETING';
+  const EDIT = 'EDITING';
 
   function save(name, interviewer) {
     const interview = {
@@ -33,10 +33,12 @@ export default function Appointment(props) {
       });
   };
 
+  const edit = () => { transition(EDIT) }
+
   function destroy(id) {
     transition(DELETING)
     props.cancelInterview(id)
-    .then (() => (transition(EMPTY)))
+      .then(() => (transition(EMPTY)))
   };
 
   const { mode, transition, back } = useVisualMode(
@@ -57,7 +59,17 @@ export default function Appointment(props) {
         <Confirm
           message={CONFIRM}
           onCancel={() => back()}
-          onConfirm={() => {destroy(props.id)}}
+          onConfirm={() => { destroy(props.id) }}
+        />
+      )}
+
+      {mode === EDIT && (
+        <Form
+          interviewers={props.interviewers}
+          name={props.interview.student}
+          interviewer={props.interview.interviewer.id}
+          onCancel={() => back()}
+          onSave={save}
         />
       )}
 
@@ -69,6 +81,7 @@ export default function Appointment(props) {
           interviewer={props.interview.interviewer.name}
           id={props.id}
           onDelete={() => (transition(CONFIRM))}
+          onEdit={edit}
         />
       )}
 
@@ -78,7 +91,8 @@ export default function Appointment(props) {
           interviewers={props.interviewers}
           onCancel={() => back()}
           onSave={save}
-        />)}
+        />
+      )}
     </article>
   );
 };
