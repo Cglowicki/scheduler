@@ -12,26 +12,28 @@ export default function Application(props) {
 
   function bookInterview(id, interview) {
 
-    console.log("THIS IS THE INTERVIEW", id, interview);
-
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
     };
-
-    //console.log("APPOINTMENT",appointment);
 
     const appointments = {
       ...state.appointments,
       [id]: appointment
     };
 
-    console.log("APPOINMENTS!!", appointments)
-
     setState({ 
       ...state,
       appointments
     });
+
+     return axios.put(`/api/appointments/${id}`,  appointment )
+     .then(() => {
+       setState({
+         ...state,
+         appointments
+       });
+     });
   };
 
   const [state, setState] = useState({

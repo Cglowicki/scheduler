@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 import './styles.scss';
 
@@ -8,29 +9,32 @@ import Header from 'components/Appointment/Header';
 import Show from 'components/Appointment/Show';
 import Empty from 'components/Appointment/Empty';
 import Form from 'components/Appointment/Form';
+import Status from 'components/Appointment/Status';
+
 
 export default function Appointment(props) {
 
-  console.log("PROPS", props);
+  const EMPTY = 'EMPTY';
+  const SHOW = 'SHOW';
+  const CREATE = 'CREATE';
+  const SAVING = 'SAVING';
 
   function save(name, interviewer) {
     const interview = {
       student: name,
       interviewer
     }
-    console.log("INTERVIEW1234", interview);
+    transition(SAVING);
     props.bookInterview(props.id, interview)
-    transition(SHOW);
+    .then(() => {
+      transition(SHOW)
+    });
   };
-
-  const EMPTY = 'EMPTY';
-  const SHOW = 'SHOW';
-  const CREATE = 'CREATE';
 
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
-  
+
   return (
     <article className="appointment">
       <Header
@@ -38,18 +42,22 @@ export default function Appointment(props) {
       />
 
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
-      {mode === SHOW && ( 
+
+      {mode === SAVING && <Status />}
+
+      {mode === SHOW && (
         <Show
           student={props.interview.student}
           interviewer={props.interview.interviewer.name}
         />
       )}
-      {mode === CREATE && ( 
-      <Form
-        interviewer={props.interviewer}
-        interviewers={props.interviewers}  
-        onCancel={() => back()}
-        onSave={save}
+
+      {mode === CREATE && (
+        <Form
+          interviewer={props.interviewer}
+          interviewers={props.interviewers}
+          onCancel={() => back()}
+          onSave={save}
         />)}
     </article>
   );
