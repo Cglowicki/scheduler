@@ -52,6 +52,10 @@ export default function Appointment(props) {
     props.interview ? SHOW : EMPTY
   );
 
+  console.log("PROPS INTERVIEW", props.interview)
+
+
+
   return (
     <article className="appointment">
       <Header
@@ -85,7 +89,11 @@ export default function Appointment(props) {
       {mode === SHOW && (
         <Show
           student={props.interview.student}
-          interviewer={props.interview.interviewer.name}
+          interviewer={ 
+            props.interview.interviewer
+              ? props.interview.interviewer.name
+              : ""
+          }
           id={props.id}
           onDelete={() => (transition(CONFIRM))}
           onEdit={edit}
