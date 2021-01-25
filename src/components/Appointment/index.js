@@ -29,20 +29,23 @@ export default function Appointment(props) {
     const interview = {
       student: name,
       interviewer
-    }
-    transition(SAVING);
-    props.bookInterview(props.id, interview)
+    };
+
+    transition(SAVING, true);
+
+    props
+      .bookInterview(props.id, interview)
       .then(() => transition(SHOW))
-      .catch(() => transition(ERROR_SAVE))
+      .catch(error => transition(ERROR_SAVE, true));
   };
 
   function destroy(id) {
-    transition(DELETING)
+    transition(DELETING, true)
     props.cancelInterview(id)
-    .then(() => transition(EMPTY))
-    .catch(() => transition(ERROR_DELETE))
+      .then(() => transition(EMPTY))
+      .catch(error => transition(ERROR_DELETE, true));
   };
-  
+
   const edit = () => { transition(EDIT) }
 
   const { mode, transition, back } = useVisualMode(
