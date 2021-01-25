@@ -36,6 +36,10 @@ export default function Application(props) {
      });
   };
 
+  function cancelInterview(id) {
+     return axios.delete(`/api/appointments/${id}`);
+  };
+
   const [state, setState] = useState({
     day: "Monday",
     days: [],
@@ -74,6 +78,7 @@ export default function Application(props) {
         interview={getInterview(state, appointment.interview)}
         interviewers={dailyInterviewers}
         bookInterview={bookInterview}
+        cancelInterview={cancelInterview}
       />
     );
   })
@@ -102,7 +107,7 @@ export default function Application(props) {
       </section>
       <section className="schedule">
         {apptMap}
-        <Appointment key="last" time="8pm" />
+        <Appointment key="last" time="5pm" />
       </section>
     </main>
   );
