@@ -31,15 +31,36 @@ export default function useAppFunctions() {
 
     return axios.put(`/api/appointments/${id}`, appointment)
       .then(() => {
-        setState({
-          ...state,
+        setState(prev => ({
+          ...prev,
           appointments
-        });
-      });
+        }))
+        axios.get('/api/days')
+          .then((data) => {
+            return setState(prev => ({
+              ...prev,
+              days: data.data
+            }))
+          })
+      })
   };
 
   function cancelInterview(id) {
-    return axios.delete(`/api/appointments/${id}`);
+    return axios.delete(`/api/appointments/${id}`)
+      .then(() => {
+        return setState(prev => {
+          return { ...prev }
+        })
+      })
+      .then(() => {
+        return axios.get('/api/days')
+          .then((data) => {
+            return setState(prev => ({
+              ...prev,
+              days: data.data
+            }))
+          })
+      })
   };
 
   return { state, setState, setDay, bookInterview, cancelInterview };
