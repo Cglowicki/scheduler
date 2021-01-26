@@ -52,10 +52,6 @@ export default function Appointment(props) {
     props.interview ? SHOW : EMPTY
   );
 
-  console.log("PROPS INTERVIEW", props.interview)
-
-
-
   return (
     <article className="appointment">
       <Header
