@@ -1,8 +1,19 @@
 # Interview Scheduler
 
+## Description
+Interview Scheduler is an app developed using React. It's functionality allows users to add, edit, delete, and view booked interviews with ease.
+
 ## Setup
 
 Install dependencies with `npm install`.
+
+## Dependencies
+
+- React
+- babel
+- storybook
+- cypress
+- jest
 
 ## Running Webpack Development Server
 
