@@ -29,7 +29,7 @@ export default function useAppFunctions() {
       appointments
     });
 
-    return axios.put(`/api/appointments/${id}`, appointment)
+    return axios.put(`http://localhost:8001/api/appointments/${id}`, appointment)
       .then(() => {
         setState(prev => ({
           ...prev,
@@ -46,14 +46,25 @@ export default function useAppFunctions() {
   };
 
   function cancelInterview(id) {
-    return axios.delete(`/api/appointments/${id}`)
+
+    const appointment = {
+      ...state.appointments[id],
+      interview: null
+    };
+
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+
+    return axios.delete(`http://localhost:8001/api/appointments/${id}`)
       .then(() => {
         return setState(prev => {
-          return { ...prev }
+          return { ...prev, appointments }
         })
       })
       .then(() => {
-        return axios.get('/api/days')
+        return axios.get("http://localhost:8001/api/days")
           .then((data) => {
             return setState(prev => ({
               ...prev,
