@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { updateSpots } from '../Helpers/selectors.js';
 import axios from 'axios';
 
 export default function useAppFunctions() {
@@ -24,26 +25,16 @@ export default function useAppFunctions() {
       [id]: appointment
     };
 
-    setState({
-      ...state,
-      appointments
-    });
-
     return axios.put(`http://localhost:8001/api/appointments/${id}`, appointment)
-      .then(() => {
-        setState(prev => ({
-          ...prev,
-          appointments
-        }))
-        axios.get('/api/days')
-          .then((data) => {
-            return setState(prev => ({
-              ...prev,
-              days: data.data
-            }))
-          })
+      .then((res) => {
+        setState(prev => {
+          const newState = {...prev, appointments}
+          let updatedDays = updateSpots(newState)
+          newState.days = updatedDays
+          return newState
+        })
       })
-  };
+    };
 
   function cancelInterview(id) {
 

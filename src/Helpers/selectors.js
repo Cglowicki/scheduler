@@ -52,3 +52,17 @@ export const getInterviewersForDay = (state, day) => {
   return results;
 };
 
+export const updateSpots = (state) => {
+  const updatedDays = [];
+  for(const day of state.days) {
+    let updatedSpots = 0;
+    day.appointments.forEach((apptID) => {
+      if (state.appointments[apptID].interview === null) {
+        updatedSpots++;
+      }
+    })
+    let updatedDay = {...day, spots: updatedSpots};
+    updatedDays.push(updatedDay);
+  }
+  return updatedDays;
+}
